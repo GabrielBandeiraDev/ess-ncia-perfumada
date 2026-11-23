@@ -29,7 +29,7 @@ function Index() {
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           <a href="#topo" className="flex items-center gap-3">
-            <img src={logo.url} alt="Import Frazão" className="h-12 w-12 rounded-full object-cover object-[50%_35%] scale-150" />
+            <img src={logo.url} alt="Import Frazão" className="h-12 w-12 rounded-full object-cover object-[50%_35%]" />
             <span className="font-display text-2xl tracking-wide text-primary">Import Frazão</span>
           </a>
           <a href="#catalogo" className="text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-primary">Catálogo</a>
@@ -38,16 +38,16 @@ function Index() {
 
       <section id="topo" className="relative h-[85vh] min-h-[520px] overflow-hidden">
         <img src={hero} alt="Perfumes sobre pedra e seda" width={1600} height={912} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent" />
-        <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6 text-ink-foreground">
-          <p className="rise text-xs uppercase tracking-[0.5em]">Perfumaria importada</p>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+        <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6 text-foreground">
+          <p className="rise text-xs uppercase text-primary tracking-[0.5em]">Perfumaria importada</p>
           <h1 className="rise mt-6 max-w-xl font-display text-6xl leading-[0.95] md:text-8xl" style={{ animationDelay: ".15s" }}>
-            A assinatura <em className="text-accent">que fica</em>.
+            A assinatura <em className="text-primary">que fica</em>.
           </h1>
           <p className="rise mt-6 max-w-md text-lg font-light opacity-90" style={{ animationDelay: ".3s" }}>
             Fragrâncias selecionadas do mundo todo, para cada momento e personalidade.
           </p>
-          <a href="#catalogo" className="rise mt-10 w-fit border border-ink-foreground/70 px-8 py-4 text-xs uppercase tracking-[0.3em] transition hover:bg-ink-foreground hover:text-ink" style={{ animationDelay: ".45s" }}>
+          <a href="#catalogo" className="rise mt-10 w-fit border border-primary px-8 py-4 text-xs uppercase tracking-[0.3em] text-primary transition hover:bg-primary hover:text-primary-foreground" style={{ animationDelay: ".45s" }}>
             Ver coleção
           </a>
         </div>
@@ -59,7 +59,7 @@ function Index() {
           {categorias.map((c) => (
             <a key={c.nome} href="#catalogo" onClick={() => setAtiva(c.nome)} className="group relative aspect-[3/4] overflow-hidden">
               <img src={c.imagem} alt={c.nome} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/85 to-transparent" />
               <div className="absolute bottom-0 p-5 text-ink-foreground">
                 <h3 className="font-display text-3xl">{c.nome}</h3>
                 <p className="text-sm font-light opacity-80">{c.descricao}</p>
