@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { listarPerfumes } from "@/lib/perfumes-api";
 import logo from "@/assets/logo.jpeg.asset.json";
 import hero from "@/assets/hero-perfumes.jpg";
-import { categorias, perfumes, formatarPreco, type Categoria } from "@/data/perfumes";
+import { categorias, formatarPreco, type Categoria } from "@/data/perfumes";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,10 +20,11 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const imagemDe = (c: Categoria) => categorias.find((x) => x.nome === c)!.imagem;
+const imagemDe = (c: string) => categorias.find((x) => x.nome === c)?.imagem ?? categorias[0]!.imagem;
 
 function Index() {
   const [ativa, setAtiva] = useState<Categoria | "Todos">("Todos");
+  const { data: perfumes = [], isLoading } = useQuery({ queryKey: ["perfumes"], queryFn: listarPerfumes });
   const lista = ativa === "Todos" ? perfumes : perfumes.filter((p) => p.categoria === ativa);
 
   return (
@@ -83,16 +86,17 @@ function Index() {
               </button>
             ))}
           </div>
+          {isLoading && <p className="mt-12 text-center text-muted-foreground">Carregando…</p>}
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {lista.map((p) => (
-              <article key={p.nome} className="group rise">
+              <article key={p.id} className="group rise">
                 <div className="aspect-square overflow-hidden bg-muted">
-                  <img src={imagemDe(p.categoria)} alt={p.nome} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                  <img src={p.imagem_url || imagemDe(p.categoria)} alt={p.nome} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
                 <p className="mt-4 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">{p.marca} · {p.categoria}</p>
                 <h3 className="mt-1 font-display text-3xl">{p.nome}</h3>
                 <p className="text-sm text-muted-foreground">{p.notas} · {p.ml}ml</p>
-                <p className="mt-2 text-lg text-primary">{formatarPreco(p.preco)}</p>
+                <p className="mt-2 text-lg text-primary">{formatarPreco(Number(p.preco))}</p>
               </article>
             ))}
           </div>
